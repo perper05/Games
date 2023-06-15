@@ -1,0 +1,37 @@
+# Task 1 Company wants to develop games like “Pokemon” games.So they need to look at Pokemon games data. They want to see information about pokemon games after years 2000 with which global sales are greater than 15 and with year order.
+
+WITH pok_year_sales AS(
+
+  SELECT 
+    Name,
+    Global_Sales
+  FROM `united-concord-372214.Games.games_data`
+  WHERE Year >'2000' AND Global_Sales > 15
+  ORDER BY Year
+  
+)
+SELECT
+  Name,
+  Global_sales
+From pok_year_sales
+WHERE Name LIKE '%Pok%'
+
+
+# Task2 Company knows that there are too many game genres. Every genre has its own customer type. So, they want to see information about top 10 genre depending on average of global sale in 2010
+
+SELECT
+  Genre,
+  AVG(Global_Sales) AS avg_gl_sales
+FROM `united-concord-372214.Games.games_data`
+WHERE Year='2010'
+GROUP BY Genre
+ORDER BY avg_gl_sales DESC
+LIMIT 10;
+
+#Task 3 In the game industry there are too many game publishers and some of them are too famous like ‘Sega’ and ‘Activision’. Company wants to know information about ‘Sega’ and ‘Activision’ companies and they are interested about Sport games in 2015 and 2012 year. They want to see order depend on rank.
+
+SELECT
+  *
+FROM`united-concord-372214.Games.games_data`
+WHERE Publisher IN ('Sega','Activision') AND Genre = 'Sports' AND Year IN ('2012', '2015')
+ORDER BY Rank
